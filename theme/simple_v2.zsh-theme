@@ -27,5 +27,5 @@ PROMPT='$(prompt_time)$(prompt_conda)$(prompt_dir)$(git_prompt_info)%{$reset_col
 # Git prompt settings
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg_bold[blue]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[blue]%})"
-ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗"
-ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✔"
+ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗"  # ✗: U+2717
+ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✔"  # ✔: U+2714
