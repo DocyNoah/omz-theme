@@ -1,45 +1,46 @@
-# Print the current time: [MM/DD HH:MM]
+# Prompt with time, environments, user, host, path, and Git status.
+# Format: [MM/DD HH:MM] (<conda>) (<uv>) <user>@<host> <path> (<branch> ✔)
+
+# Show the current time as [MM/DD HH:MM].
 prompt_time() {
   echo "%{$fg[cyan]%}[$(date +'%m/%d %H:%M')]%{$reset_color%} "
 }
 
-# Disable conda's default prompt change
+# Disable Conda's default prompt.
 export CONDA_CHANGEPS1=false
 
-# Print the current conda environment if it's not the base environment
+# Show the active Conda environment, except base.
 prompt_conda() {
   if [[ -n $CONDA_DEFAULT_ENV && $CONDA_DEFAULT_ENV != "base" ]]; then
     echo "%{$fg[magenta]%}($CONDA_DEFAULT_ENV)%{$reset_color%} "
   fi
 }
 
-# Disable uv's default prompt change
+# Disable the default virtual environment prompt.
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-# Print the current uv environment
+# Show the active uv environment.
 prompt_uv() {
   if [[ -n $VIRTUAL_ENV ]]; then
     echo "%{$fg[magenta]%}($VIRTUAL_ENV_PROMPT)%{$reset_color%} "
   fi
 }
 
-# Print the username and device name
+# Show the current user and host.
 prompt_user_host() {
   echo "%{$fg[yellow]%}%n@%m%{$reset_color%} "
 }
 
-# Print the current directory
+# Show the current path. Red for root, green for other users.
 prompt_dir() {
-  # Set the color to red if the current user is root
-  # Otherwise, set the color to green
   echo "%(!.%{$fg[red]%}.%{$fg[green]%})%~%{$reset_color%}"
 }
 
-# Custom prompt
+# Build the prompt.
 PROMPT='$(prompt_time)$(prompt_conda)$(prompt_uv)$(prompt_user_host)$(prompt_dir)$(git_prompt_info)%{$reset_color%} '
 
-# Git prompt settings
+# Set Git branch and status colors.
 ZSH_THEME_GIT_PROMPT_PREFIX=" %{$fg_bold[blue]%}("
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$fg_bold[blue]%})"
-ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗"  # ✗: U+2717
-ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✔"  # ✔: U+2714
+ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗"
+ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✔"
